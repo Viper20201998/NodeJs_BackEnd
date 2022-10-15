@@ -1,0 +1,9 @@
+doctype html
+html
+    head
+        title Curso-Backend
+    body
+        h1= tasks.description
+        p= tasks.createdAt
+        form(action=`/tasks/${tasks.id}?_method=DELETE` method="POST")
+            input(type="submit" value="Eliminar")

@@ -1,0 +1,8 @@
+doctype html
+html
+    head
+        title Curso-Backend
+    body
+        form(action=`/tasks/${tasks.id}?_method=PUT` method="POST")
+            textarea(name="description", placeholder="actualizar")= tasks.description
+            input(type="submit" value="Guardar")
