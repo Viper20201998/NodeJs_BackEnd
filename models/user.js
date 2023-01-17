@@ -28,5 +28,15 @@ module.exports = (sequelize, DataTypes) => {
 			modelName: 'User',
 		}
 	);
+	User.beforeCreate(function (user, options) {
+		return new Promise((res, rej) => {
+			if (user.password) {
+				bcrypt.hash(user.password, 10, function (error, hash) {
+					user.password_hash = hash;
+					res();
+				});
+			}
+		});
+	});
 	return User;
 };
