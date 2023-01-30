@@ -10,6 +10,7 @@ const app = express();
 const taskRoutes = require('./routes/tasks_routes');
 const registrationsRoutes = require('./routes/registration_routes');
 const sessionsRoutes = require('./routes/sessions_routes');
+const findUserMiddleware = require('./middlewares/find_user'); //middleware personalizado para buscar usuario
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -23,8 +24,14 @@ app.use(
 	})
 );
 
+app.use(findUserMiddleware);
+
 app.use(taskRoutes);
 app.use(registrationsRoutes);
 app.use(sessionsRoutes);
+
+app.get('/', function (req, res) {
+	res.render('home', { user: req.user });
+});
 
 app.listen(3000);
