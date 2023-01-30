@@ -16,4 +16,10 @@ module.exports = {
 				res.json(err);
 			});
 	},
+
+	destroy: function (req, res) {
+		req.session.destroy(function () {
+			res.redirect('/sessions');
+		});
+	},
 };

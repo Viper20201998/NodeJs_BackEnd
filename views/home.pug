@@ -4,3 +4,5 @@ html
         title bienvenido
     body
         h1= user.email
+        form(action='/sessions?_method=DELETE' method="POST")
+            input(type="submit" value="cerrar sesion")
