@@ -1,13 +1,21 @@
 const Task = require('../models').Task;
+const User = require('../models').User;
 
 module.exports = {
 	index: function (req, res) {
 		Task.findAll().then((tasks) => {
-			res.render('tasks/index', { tasks: tasks });
+			res.render('tasks/index', { tasks: req.user.tasks });
 		});
 	},
 	show: function (req, res) {
-		Task.findByPk(req.params.id).then(function (tasks) {
+		Task.findByPk(req.params.id, {
+			include: [
+				{
+					model: User,
+					as: 'user',
+				},
+			],
+		}).then(function (tasks) {
 			res.render('tasks/show', { tasks }); //{tasks: tasks} = {tasks}
 		});
 	},
