@@ -1,0 +1,10 @@
+doctype html
+html
+    head
+        title Curso-Backend
+    body
+        h1= categories.title
+        h2= categories.color
+        p= categories.createdAt
+        form(action=`/categories/${categories.id}?_method=DELETE` method="POST")
+            input(type="submit" value="Eliminar")

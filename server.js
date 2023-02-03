@@ -12,6 +12,7 @@ const registrationsRoutes = require('./routes/registration_routes');
 const sessionsRoutes = require('./routes/sessions_routes');
 const findUserMiddleware = require('./middlewares/find_user'); //middleware personalizado para buscar usuario
 const authUser = require('./middlewares/auth_user'); //middleware personalizado para proteger las rutas
+const categoriesRoutes = require('./routes/categories_routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -32,6 +33,7 @@ app.use(authUser);
 app.use(taskRoutes);
 app.use(registrationsRoutes);
 app.use(sessionsRoutes);
+app.use(categoriesRoutes);
 
 app.get('/', function (req, res) {
 	res.render('home', { user: req.user });
