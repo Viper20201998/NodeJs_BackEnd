@@ -4,5 +4,6 @@ html
         title Curso-Backend
     body
         form(action=`/tasks/${tasks.id}?_method=PUT` method="POST")
+            input(type="text" name="categories" placeholder="ID categorias")
             textarea(name="description", placeholder="actualizar")= tasks.description
             input(type="submit" value="Guardar")
