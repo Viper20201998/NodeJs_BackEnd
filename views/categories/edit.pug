@@ -4,6 +4,7 @@ html
         title Curso-Backend
     body
         form(action=`/categories/${categories.id}?_method=PUT` method="POST")
+            input(type="text" name="tasks" palceholder="ID Tareas")
             input(name="title" value=`${categories.title}` placeholder="actualizar title")
             input(name="color" type="color" value=`${categories.color}` palceholder="actualizar color")
             input(type="submit" value="Guardar")

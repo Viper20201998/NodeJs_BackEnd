@@ -13,7 +13,7 @@ module.exports = {
 		};
 		Category.create(data)
 			.then((result) => {
-                res.redirect('/categories')
+				res.redirect('/categories');
 				//res.json(result);
 			})
 			.catch((err) => {
@@ -21,7 +21,9 @@ module.exports = {
 			});
 	},
 	show: function (req, res) {
-		Category.findByPk(req.params.id).then(function (categories) {
+		Category.findByPk(req.params.id, {
+			include: ['tasks'],
+		}).then(function (categories) {
 			res.render('categories/show', { categories });
 		});
 	},
@@ -31,16 +33,21 @@ module.exports = {
 		});
 	},
 	update: function (req, res) {
-		Category.update(
-			{ title: req.body.title, color: req.body.color },
-			{
-				where: {
-					id: req.params.id,
-				},
-			}
-		).then(function (response) {
-			res.redirect('/categories');
-			//res.json(response);
+		let categories = Category.findByPk(req.params.id).then((categories) => {
+			categories.title = req.body.title;
+			categories.save().then(() => {
+				let taskIds = req.body.tasks.split(',');
+				taskIds = taskIds.map((id) => parseInt(id));
+				categories
+					.addTasks(taskIds)
+					.then(() => {
+						res.redirect('/categories');
+					})
+					.catch((err) => {
+						console.log(err);
+						res.json(err);
+					});
+			});
 		});
 	},
 	destroy: function (req, res) {

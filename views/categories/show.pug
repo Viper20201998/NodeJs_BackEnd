@@ -6,5 +6,8 @@ html
         h1= categories.title
         h2= categories.color
         p= categories.createdAt
+        ul
+            each task in categories.tasks
+                li=task.description
         form(action=`/categories/${categories.id}?_method=DELETE` method="POST")
             input(type="submit" value="Eliminar")
