@@ -8,5 +8,8 @@ html
         p
             strong Autor: 
             span=tasks.user.email
+        ul
+            each category in tasks.categories
+                li=category.title
         form(action=`/tasks/${tasks.id}?_method=DELETE` method="POST")
             input(type="submit" value="Eliminar")
