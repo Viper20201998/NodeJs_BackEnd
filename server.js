@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const methodOverride = require('method-override');
 const session = require('express-session');
+
 const socketio = require('socket.io');
+const client = require('./realtime/client');
 
 const app = express();
 
