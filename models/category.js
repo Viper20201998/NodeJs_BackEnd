@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			Category.belongsToMany(models.Task, {
 				through: 'TaskCategories',
 				as: 'tasks',
-				foreignKey: 'taskId',
+				foreignKey: 'categoryId',
 				//otherKey: 'taskId',
 			});
 		}
