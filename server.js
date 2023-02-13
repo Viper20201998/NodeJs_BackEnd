@@ -51,6 +51,12 @@ let usersCount = 0;
 io.on('connection', function (socket) {
 	usersCount++;
 	io.emit('count_updated', { count: usersCount });
+
+	socket.on('new_task', function (data) {
+		console.log(data);
+		io.emit('new_task',data);
+	});
+
 	socket.on('disconnect', function () {
 		usersCount--;
 		io.emit('count_updated', { count: usersCount });

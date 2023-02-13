@@ -1,5 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
+
+const socket = require('../realtime/client');
+
 module.exports = (sequelize, DataTypes) => {
 	class Task extends Model {
 		/**
@@ -16,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 				through: 'TaskCategories',
 				as: 'categories',
 				foreignKey: 'taskId',
-                //otherKey: 'categoryId'
+				//otherKey: 'categoryId'
 			});
 		}
 	}
@@ -29,5 +32,8 @@ module.exports = (sequelize, DataTypes) => {
 			modelName: 'Task',
 		}
 	);
+	Task.afterCreate(function (task, options) {
+		socket.emit('new_task', task);
+	});
 	return Task;
 };
